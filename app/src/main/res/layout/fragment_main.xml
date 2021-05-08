@@ -4,8 +4,8 @@
 
     <data>
         <variable
-            name="count"
-            type="Integer" />
+            name="vm"
+            type="com.melq.mvvm.MainViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -22,7 +22,7 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             android:textSize="64sp"
-            android:text="@{count.toString()}"/>
+            android:text="@{vm.countNumber.toString()}"/>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="wrap_content"

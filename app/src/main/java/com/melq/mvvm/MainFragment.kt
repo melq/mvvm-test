@@ -5,61 +5,44 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.edit
 import androidx.fragment.app.Fragment
-import com.google.android.material.snackbar.Snackbar
 import com.melq.mvvm.databinding.FragmentMainBinding
 
 class MainFragment : Fragment() {
     private lateinit var viewBinding: FragmentMainBinding
+    private lateinit var viewModel: MainViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        val pref = activity?.getSharedPreferences("preference_root", Context.MODE_PRIVATE)
+        viewModel = pref?.let { MainViewModel(it) }!!
+
         viewBinding = FragmentMainBinding.inflate(inflater, container, false)
+        viewBinding.vm = viewModel
+        viewBinding.lifecycleOwner = this
         return viewBinding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val pref = activity?.getSharedPreferences("preference_root", Context.MODE_PRIVATE)
-
-        var count = 0
-        if (pref != null)
-            count = pref.getInt("count", 0)
-        else Snackbar.make(viewBinding.constraintLayout,
-                "pref is null",
-                Snackbar.LENGTH_LONG).show()
-
-        viewBinding.count = count
-
         viewBinding.bt1.setOnClickListener {
-            count += 1
-            viewBinding.count = count
-            pref?.edit { putInt("count", count) }
+            viewModel.countUp(1)
         }
         viewBinding.bt2.setOnClickListener {
-            count += 2
-            viewBinding.count = count
-            pref?.edit { putInt("count", count) }
+            viewModel.countUp(2)
         }
         viewBinding.bt3.setOnClickListener {
-            count += 3
-            viewBinding.count = count
-            pref?.edit { putInt("count", count) }
+            viewModel.countUp(3)
         }
         viewBinding.bt4.setOnClickListener {
-            count += 4
-            viewBinding.count = count
-            pref?.edit { putInt("count", count) }
+            viewModel.countUp(4)
         }
         viewBinding.btReset.setOnClickListener {
-            count = 0
-            viewBinding.count = count
-            pref?.edit{ putInt("count", count) }
+            viewModel.countReset()
         }
     }
 }

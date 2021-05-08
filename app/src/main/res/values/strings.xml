@@ -1,5 +1,8 @@
 <resources>
     <string name="app_name">MVVM</string>
-    <string name="ok">○</string>
-    <string name="bad">✕</string>
+    <string name="num1">1</string>
+    <string name="num2">2</string>
+    <string name="num3">3</string>
+    <string name="num4">4</string>
+    <string name="reset">✕</string>
 </resources>
